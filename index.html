@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>伤寒论条文播放器</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>伤寒论条文播放器</h1>
+    <p>支持单条播放、循环、自动连播，适配手机和平板</p>
+  </header>
+
+  <main class="container">
+    <section class="list-panel">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="搜索条文关键词，如：太阳病、桂枝汤、少阳"
+        />
+      </div>
+
+      <div class="summary-bar">
+        <span id="summaryText">共 0 条</span>
+      </div>
+
+      <div id="itemList" class="item-list"></div>
+    </section>
+
+    <section class="detail-panel">
+      <div class="detail-card">
+        <div class="meta-row">
+          <span id="itemNo">编号：-</span>
+          <span id="itemChapter">篇章：-</span>
+        </div>
+
+        <div class="level-row">
+          <span id="itemLevel">级别：-</span>
+        </div>
+
+        <article id="itemText" class="item-text">请选择一条条文。</article>
+      </div>
+
+      <div class="control-card">
+        <div class="button-row">
+          <button id="prevBtn">上一条</button>
+          <button id="playBtn">播放</button>
+          <button id="pauseBtn">暂停</button>
+          <button id="nextBtn">下一条</button>
+        </div>
+
+        <div class="toggle-row">
+          <label>
+            <input type="checkbox" id="loopToggle" />
+            单条循环
+          </label>
+          <label>
+            <input type="checkbox" id="autoNextToggle" checked />
+            自动连播
+          </label>
+        </div>
+
+        <div class="status-row">
+          <span id="statusText">状态：未播放</span>
+        </div>
+
+        <div class="progress-row">
+          <span id="timeText">00:00 / 00:00</span>
+        </div>
+
+        <audio id="audioPlayer" controls preload="metadata"></audio>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
