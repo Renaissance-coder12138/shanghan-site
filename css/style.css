@@ -7,6 +7,7 @@ body {
   font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
   background: #f7f8fa;
   color: #222;
+  padding-bottom: 220px;
 }
 
 .site-header {
@@ -16,7 +17,7 @@ body {
   text-align: center;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
 }
 
 .site-header h1 {
@@ -39,20 +40,22 @@ body {
 }
 
 .list-panel {
-  width: 42%;
+  width: 46%;
   min-width: 320px;
 }
 
 .detail-panel {
-  width: 58%;
+  width: 54%;
   min-width: 320px;
 }
 
 .search-box,
 .summary-bar,
+.batch-bar,
 .detail-card,
-.control-card,
-.item-card {
+.playlist-card,
+.item-card,
+.floating-player {
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
@@ -79,6 +82,31 @@ body {
   font-size: 14px;
 }
 
+.batch-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.batch-bar button,
+.playlist-actions button,
+.floating-controls button {
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+.batch-bar button,
+.playlist-actions button {
+  height: 40px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+
 .item-list {
   display: flex;
   flex-direction: column;
@@ -87,19 +115,30 @@ body {
 
 .item-card {
   padding: 14px;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
   border: 2px solid transparent;
-}
-
-.item-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .item-card.active {
   border-color: #2563eb;
   background: #f8fbff;
+}
+
+.item-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.item-checkbox {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.item-main {
+  flex: 1;
+  cursor: pointer;
 }
 
 .item-card .top-line {
@@ -118,20 +157,18 @@ body {
 }
 
 .detail-card,
-.control-card {
+.playlist-card {
   padding: 18px;
   margin-bottom: 16px;
 }
 
 .detail-card {
-  max-height: 58vh;
+  max-height: 38vh;
   overflow-y: auto;
 }
 
 .meta-row,
-.level-row,
-.status-row,
-.progress-row {
+.level-row {
   margin-bottom: 12px;
   color: #555;
   font-size: 15px;
@@ -144,26 +181,64 @@ body {
   white-space: pre-wrap;
 }
 
-.button-row {
+.playlist-header {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.button-row button {
-  min-width: 92px;
-  height: 44px;
+.playlist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 30vh;
+  overflow-y: auto;
+}
+
+.playlist-item {
+  border: 1px solid #dbe3ef;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fafcff;
+}
+
+.playlist-item.active {
+  border-color: #2563eb;
+  background: #eef5ff;
+}
+
+.playlist-item-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+.playlist-item-text {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.playlist-item-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.playlist-item-actions button {
+  height: 34px;
+  padding: 0 12px;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   background: #2563eb;
   color: #fff;
-  font-size: 16px;
   cursor: pointer;
-}
-
-.button-row button:hover {
-  opacity: 0.92;
+  font-size: 13px;
 }
 
 .toggle-row {
@@ -174,12 +249,58 @@ body {
   font-size: 15px;
 }
 
+.empty-playlist {
+  color: #666;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.floating-player {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 12px;
+  z-index: 30;
+  padding: 14px;
+  border: 1px solid #dbe3ef;
+}
+
+.floating-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.floating-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.floating-controls button {
+  min-width: 88px;
+  height: 42px;
+  font-size: 15px;
+}
+
+.floating-bottom {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
 audio {
   width: 100%;
-  margin-top: 8px;
 }
 
 @media (max-width: 900px) {
+  body {
+    padding-bottom: 260px;
+  }
+
   .container {
     flex-direction: column;
     padding: 12px;
@@ -195,30 +316,53 @@ audio {
     font-size: 24px;
   }
 
+  .detail-card,
+  .playlist-items {
+    max-height: none;
+  }
+
   .item-text {
     font-size: 18px;
     line-height: 1.8;
   }
 
-  .detail-card {
-    max-height: none;
+  .floating-player {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 12px;
   }
 
-  .button-row button {
-    flex: 1 1 calc(50% - 12px);
+  .floating-top {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .floating-controls button {
+    flex: 1 1 calc(50% - 10px);
   }
 }
 
 @media (max-width: 480px) {
-  .site-header {
-    padding: 16px 12px;
+  body {
+    padding-bottom: 290px;
   }
 
   .item-text {
     font-size: 17px;
   }
 
-  .button-row button {
+  .batch-bar button,
+  .playlist-actions button {
+    width: 100%;
+  }
+
+  .floating-controls button {
     flex: 1 1 100%;
+  }
+
+  .playlist-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

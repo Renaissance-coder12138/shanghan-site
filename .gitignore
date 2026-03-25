@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 source/
 tools/
+.DS_Store
+Thumbs.db

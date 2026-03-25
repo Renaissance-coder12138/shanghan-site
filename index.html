@@ -9,7 +9,7 @@
 <body>
   <header class="site-header">
     <h1>伤寒论条文播放器</h1>
-    <p>支持单条播放、循环、自动连播，适配手机和平板</p>
+    <p>支持单条播放、多条循环、自动连播，适配手机和平板</p>
   </header>
 
   <main class="container">
@@ -24,6 +24,12 @@
 
       <div class="summary-bar">
         <span id="summaryText">共 0 条</span>
+      </div>
+
+      <div class="batch-bar">
+        <button id="selectAllVisibleBtn">勾选当前结果</button>
+        <button id="clearVisibleSelectionBtn">取消当前勾选</button>
+        <button id="addToPlaylistBtn">加入播放列表</button>
       </div>
 
       <div id="itemList" class="item-list"></div>
@@ -43,18 +49,18 @@
         <article id="itemText" class="item-text">请选择一条条文。</article>
       </div>
 
-      <div class="control-card">
-        <div class="button-row">
-          <button id="prevBtn">上一条</button>
-          <button id="playBtn">播放</button>
-          <button id="pauseBtn">暂停</button>
-          <button id="nextBtn">下一条</button>
+      <div class="playlist-card">
+        <div class="playlist-header">
+          <span id="playlistSummary">播放列表：0 条</span>
+          <div class="playlist-actions">
+            <button id="clearPlaylistBtn">清空播放列表</button>
+          </div>
         </div>
 
-        <div class="toggle-row">
+        <div class="toggle-row playlist-toggle-row">
           <label>
-            <input type="checkbox" id="loopToggle" />
-            单条循环
+            <input type="checkbox" id="playlistLoopToggle" checked />
+            播放列表循环
           </label>
           <label>
             <input type="checkbox" id="autoNextToggle" checked />
@@ -62,18 +68,35 @@
           </label>
         </div>
 
-        <div class="status-row">
-          <span id="statusText">状态：未播放</span>
+        <div id="playlistItems" class="playlist-items">
+          <div class="empty-playlist">播放列表为空，请先从左侧勾选并加入。</div>
         </div>
-
-        <div class="progress-row">
-          <span id="timeText">00:00 / 00:00</span>
-        </div>
-
-        <audio id="audioPlayer" controls preload="metadata"></audio>
       </div>
     </section>
   </main>
+
+  <div class="floating-player">
+    <div class="floating-top">
+      <span id="statusText">状态：未播放</span>
+      <span id="timeText">00:00 / 00:00</span>
+    </div>
+
+    <div class="floating-controls">
+      <button id="prevBtn">上一条</button>
+      <button id="playBtn">播放</button>
+      <button id="pauseBtn">暂停</button>
+      <button id="nextBtn">下一条</button>
+    </div>
+
+    <div class="floating-bottom">
+      <label>
+        <input type="checkbox" id="singleLoopToggle" />
+        单条循环
+      </label>
+    </div>
+
+    <audio id="audioPlayer" controls preload="metadata"></audio>
+  </div>
 
   <script src="js/app.js"></script>
 </body>
