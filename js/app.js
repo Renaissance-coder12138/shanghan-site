@@ -79,7 +79,7 @@ function renderList() {
       card.classList.add("active");
     }
 
-    const previewText = item.text.length > 42 ? item.text.slice(0, 42) + "..." : item.text;
+    const previewText = item.text;
     const checked = selectedIds.has(item.id) ? "checked" : "";
 
     card.innerHTML = `
@@ -214,7 +214,7 @@ function renderPlaylist() {
       div.classList.add("active");
     }
 
-    const previewText = item.text.length > 34 ? item.text.slice(0, 34) + "..." : item.text;
+    const previewText = item.text;
 
     div.innerHTML = `
       <div class="playlist-item-top">
